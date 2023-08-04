@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en-in">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bandgaps for 1-D soft tunable phononic crystal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</head>
+
+<body>
+    <header>
+        <nav class="border-bottom box-shadow">
+            <div class="container">
+                <ul class="navbar-nav">
+                    <li class="nav-item navbar-brand">
+                        <a href="home.html">Bandgaps for 1-D Soft Tunable Phononic Crystal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link navtext text-dark" href="home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link navtext text-dark" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://iitj.ac.in"><img src="{{ url_for('static', filename='images/iitj_logo.jpg') }}" class="logo" /></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="main">
+        <div class="columns">
+            <div class="rules">
+                <form id="inputForm" method="post">
+                    <h3>Enter the values of properties of unit-cell here:</h3>
+                    <ol class="inputlist">
+                        <li class="inputl">
+                            <label for="micro">
+                                <h4>Microstructure</h4>A 200-length binary string<br>
+                            </label>
+                            <input type="text" class="input" name="micro" id="micro" minlength="200" maxlength="200"
+                                pattern="[01]+" required />
+                            <button type="button" id="randomMicro" class="btn-primary">Random Binary Input</button>
+                        </li>
+                        <li class="inputl">
+                            <label for="len">
+                                <h4>Length</h4>A value from 0.001 to 0.1 (in m)<br>
+                            </label>
+                            <input type="number" class="input" name="len" id="len" min="0.001" step="0.000000001" max="0.1"
+                                required />
+                        </li>
+                        <li class="inputl">
+                            <label for="beta">
+                                <h4>Magnetic Contrast Parameter (&beta;)</h4>A value from 0.05 to 50<br>
+                            </label>
+                            <input type="number" name="beta" class="input" id="beta" min="0.5" max="50"
+                                step="0.000000001" required />
+                        </li>
+                        <li class="inputl">
+                            <label for="alpha">
+                                <h4>Shear Contrast Parameter (&alpha;)</h4>A value from 0.05 to 50<br>
+                            </label>
+                            <input type="number" id="alpha" name="alpha" class="input" min="0.5" max="50"
+                                step="0.000000001" required />
+                        </li>
+                        <li class="inputl">
+                            <label for="flux">
+                                <h4>Applied magnetic flux density (B)</h4>A value from -5 to 5<br>
+                            </label>
+                            <input type="number" id="flux" name="flux" min="-5" max="5" class="input" step="0.000000001"
+                                required />
+                        </li>
+                        <li class="inputl">
+                            <label for="jm">
+                                <h4>Local measure of volume change parameter (J)</h4>A value from 2 to 1000<br>
+                            </label>
+                            <input type="number" id="jm" name="jm" min="2" max="1000" class="input" step="0.000000001"
+                                required />
+                        </li>
+                    </ol>
+                    <input type="submit" class="btn-primary" value="Get Values" />
+                    <button type="button" class="btn-primary" id="randomAll">Random Inputs</button>
+
+                </form>
+            </div>
+            <div class="rules" id="outputDiv">
+                <div class="struct">
+                    <h3>Microstructure of the unit cell:</h3>
+                    {% if image_data %}
+                    <img src="data:image/png;base64,{{ image_data }}" alt="Generated Microstructure Image">
+                    {% endif %}
+                </div>
+                <div class="bandgaps">
+                    <ul style="list-style-type: none;">
+                        <li>
+                            <h3>Second Bandgap</h3>
+                            {% if max2 %}<p class="output" id="max2">{{max2}}</p>{% endif %} to
+                            {% if min2 %}<p class="output" id="min2">{{min2}}</p>{% endif %}
+                        </li>
+                        <li>
+                            <h3>First Bandgap</h3>
+                            {% if max1 %}<p class="output" id="max1">{{max1}}</p>{% endif %} to
+                            {% if min1 %}<p class="output" id="min1">{{min1}}</p>{% endif %}
+                        </li>
+                    </ul>
+                </div>
+                <button id="editBtn">Edit Inputs</button>
+            </div>
+        </div>
+    </div>
+    <footer class="border-top footer box-shadow">
+        &copy; 2023 - Yash Shrivastava; Anshu Raj
+    </footer>
+</body>
+
+</html>
